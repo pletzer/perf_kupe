@@ -1,23 +1,24 @@
-# How to squeeze C++ performance on kupe using the Cray compiler: a case study
+# Squeezing performance on kupe using the Cray compiler: example of an advection C++ code
 
 
 ## Overview 
 
 Through a few simple steps, we show how to improve the performance of a C++ code on the NeSI Cray XC-50 system (Skylake processor 2.4GHz) installed at the National Institute for Water and Atmospheric Research (NIWA), New Zealand. 
 
-Our example, upwindCxx, is a finite difference code written in C++ which advects a bubble on a 3D periodic grid using a low order upwind algorithm.
+Our example, upwindCxx, is a finite difference code written in C++ which advects (pushes) a bubble on a 3D periodic grid using an upwind algorithm. The core part of the algorithm is a loop over millions of cells where field values are taken at adjacent cells. The code is simple, comprising of a few hundred lines of code, yet complex enough to represent finite difference/element/volume codes, which share 
+similar computation patterns.
 
 ![Advection of bubble](../../figs/advect.png)
 
 ## Prerequisites
 
-To walk through the example, you will need to have access to NeSI/NIWA kupe platform and be familiar to the development environment on kupe (git, CMake and compilers). Refer  to the training deck [https://github.com/nesi/hpc_training/tree/gh-pages/_lessons/kupe] for details. 
+To walk through the example, you will need to have access to NeSI/NIWA kupe platform and be familiar to the development environment on kupe (Unix, git, CMake and compilers). Refer  to the training deck [https://github.com/nesi/hpc_training/tree/gh-pages/_lessons/kupe] for details. 
 
 Our starting point is the default environment with the PrgEnv-cray/6.0.4 programming environment loaded.
 
 ## Downloading and building the example code
 
-upwindCxx is included in the fidibench test suite, We'll start with downloading and building the code:
+First we need to download and build upwindCxx, which is included in the fidibench test suite:
 
 ```
 git clone https://github.com/pletzer/fidibench
