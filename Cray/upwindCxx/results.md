@@ -5,7 +5,11 @@
 
 Through a few simple steps, we show how to improve the performance of a C++ code on the NeSI Cray XC-50 system (Skylake processor 2.4GHz) installed at the National Institute for Water and Atmospheric Research (NIWA), New Zealand. 
 
-Our example, upwindCxx, is a finite difference code written in C++ which advects a bubble on a 3D periodic grid using a low order upwind algorithm. 
+Our example, upwindCxx, is a finite difference code written in C++ which advects a bubble on a 3D periodic grid using a low order upwind algorithm.
+
+## Prerequisites
+
+To walk through the example, you will need to have access to NeSI/NIWA kupe platform and be familiar to the development environment on kupe (git, CMake and compilers). Refer  to the training deck [https://github.com/nesi/hpc_training/tree/gh-pages/_lessons/kupe] for details. 
 
 ## Downloading and building the example code
 
