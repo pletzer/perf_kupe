@@ -1,9 +1,13 @@
-# How to squeeze C++ performance on kupe using the Cray compiler
+# How to squeeze C++ performance on kupe using the Cray compiler: a case study
+
+
+## Overview 
 
 Through a few simple steps, we show how to improve the performance of a C++ code on the Cray XC-50 system (Skylake processor 2.4GHz) installed at the National Institute for Water and Atmospheric Research (NIWA), New Zealand. 
 
 Our example, upwindCxx, is a finite difference code written in C++ which advects a bubble on a 3D periodic grid using a low order upwind algorithm. 
 
+## Downloading and building the example code
 
 upwindCxx is included in the fidibench test suite, We'll start with downloading and building the code:
 
@@ -16,11 +20,62 @@ make
 ```
 This will compile the code using default compiler options. 
 
+## Our baseline result
+
 To run upwindCxx using 40 OpenMP threads, type 
 ```
 cd upwind/cxx
 module load slurm
 sbatch upwindCxx_kupe_40.sl
 ```
+(Feel free to change the account and partition name as needed.) This gives an execution time of 48.8 sec.
+
+## Improving the baseline result
+
+### Specifying the CPU target
+
+By default, the CPU target is not set. We recommend to either
+```
+module load craype-broadwell
+```
+or
+```
+module load craype-x86-skylake
+```
+prior to compiling. This will tell the compiler to use the most appropriate instruction set for the hardware. kupe has skylake processors, which support AVX-512 vectorization. This means more vectorization, compared to loading ```craype-broadwell``` and the potential for bigger performance. Be aware that in some cases ```craype-broadwell``` gives better performance (it is still an open question as to why this should the case).
+
+In our case, ```craype-broadwell``` gives 48.6 sec and ```craype-x86-skylake``` 48.7 sec, about the same time. In the following we'll choose ```craype-x86-skylake```.
+
+### Fine tuning the compiler options
+
+We encourage you to play with compiler options - a list can be obtained with ```man crayCC```. Some the the compiler options you may want to consider are:
+
+ * ```-O```n where n is either 2 or 3
+ * ```-h vector```n where n is 1 or 2
+ * ```-h ipa```n where n is 3, 4 or 5
+ * ```-h fp4```  
+
+ To recompile with options ```-O2 -h vector2 -h fp4 -h ipa5```, go back to the build directory
+ ```
+ cd ../../
+ make clean; rm CMakeCache.txt ; cmake -DOPT_FLAGS="-O2 -h vector2 -h fp4 -h ipa5" ..; make VERBOSE=1
+ ```
+
+ This gives 46.1 sec, a very small improvement. 
+
+
+### Ensuring that the OpenMP threads run on different physical cores
+
+Each physical core (processor unit) supports up to two threads. By default, SLURM will pack as many threads as possible per processor and this can lead to contention issues. Except when hyperthreading is on, it is in general preferable to spread the threads across the physical cores (one thread for each core) and this can be achieved by adding ```--hint=nomultithread``` to the ```srun``` command in the SLURM script ```upwindCxx_kupe_40.sl```.
+
+This gives 34.8 sec, a 40 percent preformance improvement.
+
+## Bottom line
+
+To reach best performance on kupe, be sure to use the right compiler options and the right environment. In this particular case, the biggest improvement came from using the ```srun``` option ```--hint=nomultithread```. 
+
+
+
+
 
 
