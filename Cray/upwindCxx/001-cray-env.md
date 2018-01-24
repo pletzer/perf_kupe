@@ -7,7 +7,7 @@ Through a few simple steps, we show how to improve the performance of a C++ code
 
 Our example, upwindCxx, is a finite difference code written in C++ which advects a bubble on a 3D periodic grid using a low order upwind algorithm.
 
-![alt Advection of bubble](../../figs/advect.png)
+![Advection of bubble](../../figs/advect.png | width=100)
 
 ## Prerequisites
 
@@ -81,7 +81,7 @@ This gives **34.8 sec**, a 40 percent performance improvement.
 
 To reach best performance on kupe, be sure to use the right compiler options and the right environment (together). In this particular case, the biggest improvement came from using the ```srun``` option ```--hint=nomultithread```. 
 
-
+![Speedup][001-cray-env-speedup.png | width=100]
 
 
 
