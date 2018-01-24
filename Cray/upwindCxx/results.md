@@ -7,9 +7,13 @@ Through a few simple steps, we show how to improve the performance of a C++ code
 
 Our example, upwindCxx, is a finite difference code written in C++ which advects a bubble on a 3D periodic grid using a low order upwind algorithm.
 
+[alt Advection of bubble](figs/advect.png)
+
 ## Prerequisites
 
 To walk through the example, you will need to have access to NeSI/NIWA kupe platform and be familiar to the development environment on kupe (git, CMake and compilers). Refer  to the training deck [https://github.com/nesi/hpc_training/tree/gh-pages/_lessons/kupe] for details. 
+
+Our starting point is the default environment with the PrgEnv-cray/6.0.4 programming environment loaded.
 
 ## Downloading and building the example code
 
