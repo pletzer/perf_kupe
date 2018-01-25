@@ -8,7 +8,7 @@ Through a few simple steps, we show how to improve the performance of a C++ code
 Our example, upwindCxx, is a finite difference code written in C++ which advects (pushes) a bubble on a 3D periodic grid using an upwind algorithm. The core part of the algorithm is a loop over millions of cells where field values are taken at adjacent cells. The code is simple, comprising of a few hundred lines of code, yet complex enough to represent finite difference/element/volume codes, which share 
 similar computation patterns.
 
-![Advection of bubble](../../figs/advect.png)
+![Advection of bubble](../figs/advect.png)
 
 ## Prerequisites
 
