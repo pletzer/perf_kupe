@@ -41,10 +41,10 @@ As of January 30 2018, the master branch SPECFEM3D will not compile with the Cra
 | Gnu 7.1.0        | broadwell   | 192      |  41%    |
 | Gnu 7.1.0        | x86-skylake | 185      |  46%    |
 | Intel 17.0.4.196 | x86-skylake | 237      |  14%    |
-| Cray 8.6.2       ! x86-skylake | 179      |  51%    |
+| Cray 8.6.2       | x86-skylake | 179      |  51%    |
 
 
-![Speedup](001-cray-env-speedup-ap.png)
+[Speedup](001-cray-env-speedup-ap.png)
 
 
 
