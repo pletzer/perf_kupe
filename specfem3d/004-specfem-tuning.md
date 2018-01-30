@@ -28,13 +28,13 @@ The test involves generating the database and running SPECFEM3D on 4 processors.
 
 ## Results and summary
 
-The results below were obtained choosing different compilers and CPU targets. For instance, "Gnu 4.9.2" means that ```PrgEnv-gnu``` and ```gcc/4.9.3``` were loaded. x86-64 is the default target; other options are ```craype-broadwell``` and ```craype-x86-skylake```. 
+The results below were obtained choosing different compilers and CPU targets. For instance, "Gnu 4.9.2" means that ```PrgEnv-gnu``` and ```gcc/4.9.3``` were loaded. Target x86-64 is the default; other options are ```craype-broadwell``` and ```craype-x86-skylake```. Load ```craype-x86-skylake``` to take advatange of AVX-512 vectorization. AVX-512 instruction sets are only supported by Gnu compilers from version 6.1.0 onwards. 
 
-Note that SPECFEM3D will not compile with the Cray compilers due to a symbol clash where "si" is used both to declare integer types and as a real variable. The corrected files 
+As of January 30 2018, the master branch SPECFEM3D will not compile with the Cray compilers due to a symbol clash where "si" is used both to declare integer types and as a real variable. The corrected files can be downloaded from [anisotropic_parametrisation_mod.f90](anisotropic_parametrisation_mod.f90) and [elastic_tensor_tools_mod.f90](elastic_tensor_tools_mod.f90).
 
 
 
-| Compiler         | Target      | Time (s) |  Seedup |
+| Compiler         | Target      | Time (s) |  Speed improvement |
 |------------------|-------------|----------|---------|
 | Gnu 4.9.3        | x86-64      | 271      |   0     |
 | Gnu 4.9.3        | broadwell   | 245      |  11%    |
@@ -44,7 +44,7 @@ Note that SPECFEM3D will not compile with the Cray compilers due to a symbol cla
 | Cray 8.6.2       ! x86-skylake | 179      |  51%    |
 
 
-![Speedup](001-cray-env-speedup.png)
+![Speedup](001-cray-env-speedup-ap.png)
 
 
 
