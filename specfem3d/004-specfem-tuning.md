@@ -46,7 +46,7 @@ As of January 30 2018, the master branch SPECFEM3D will not compile with the Cra
 | Cray 8.6.2       | x86-skylake | 179      |  51%    |
 
 
-![Speedup](001-cray-env-speedup-ap.png)
+![Speedup](004-cray-env-speedup-ap.png)
 
 
 
