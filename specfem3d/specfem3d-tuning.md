@@ -5,19 +5,53 @@
 
 Through a few simple steps, we show how to improve the performance of a community finite element code, SPECFEM3D,  on the NeSI Cray XC-50 system (Skylake processor 2.4GHz) installed at the National Institute for Water and Atmospheric Research (NIWA), New Zealand. 
 
+We assume that you have your programming environment set, we'll show the build steps for
+```
+module load PrgEnv-cray
+module load craype-x86-skylake
+```
+
+Other programming environments are:
+```
+module swap PrgEnv-cray PrgEnv-gnu
+module load craype-craype-broadwell
+```
+
+```
+module swap PrgEnv-cray PrgEnv-gnu
+module load gcc/6.1.0
+module load craype-craype-skylake
+```
+
+```
+module swap PrgEnv-cray PrgEnv-gnu
+module load gcc/7.1.0
+module load craype-craype-skylake
+```
+
+and 
+
+```
+module swap PrgEnv-cray PrgEnv-intel
+module load craype-craype-skylake
+```
+
+
 The steps to build and run SPECFEM3D are:
 ```
 git clone --recursive https://github.com/geodynamics/specfem3d.git
 cd specfem3d
-./configure FC=ftn CC=cc CXX=CC MPIFC=ftn MPICC=cc MPICXX=CC --with-mpi 
+mkdir build-cray
+cd build-cray
+../configure FC=ftn CC=cc CXX=CC MPIFC=ftn MPICC=cc MPICXX=CC --with-mpi 
 make
 ```
 
-Our test case is ```homogeneous_half_space```:
+Our test case is ```homogeneous_halfspace```:
 ```
-cd EXAMPLES/homogeneous_half_space
+cd ../EXAMPLES/homogeneous_halfspace
 ```
-Use from [here](run_this_script.sh) to submit the job 
+Use Slurm script [run_this_script.sh](run_this_script.sh) to submit the job 
 ```
 sbatch  run_this_script.sh
 ```

@@ -5,7 +5,6 @@
 #SBATCH --nodes=1
 #SBATCH --ntasks=4
 #SBATCH --partition=NeSI
-#SBATCH --account=nesi99999
 
 echo "running example: `date`"
 currentdir=`pwd`
